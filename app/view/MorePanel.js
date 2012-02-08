@@ -22,9 +22,6 @@ Ext.define('app.view.MorePanel', {
 		     ]
 		}),
 		items: [{
-			xtype:'button',
-			text: 'hello'
-		}, {
 			docked: 'top',
 			xtype: 'navigationbar',
 			title: '更多',

@@ -3,16 +3,19 @@ Ext.Loader.setConfig({
 });
 Ext.application({
 	name: 'app',
+	appFolder: 'app',
 	icon: 'resources/img/icon.png',
     glossOnIcon: false,
     phoneStartupScreen: 'resources/img/phone_startup.png',
     tabletStartupScreen: 'resources/img/tablet_startup.png',
     
-	//model: ['More'],
+	//models: ['Message'],
 	
 	views: ['Viewport', 'MainPanel', 'LoginPanel', 'AboutPanel', 'MsgList'],
 	
 	controllers: ['LoginPanel', 'Main'],
+	
+	stores: ['MsgStore'],
 	
 	//store: ['More'],
 
