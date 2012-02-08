@@ -73,13 +73,8 @@ Ext.define('App.view.PostPanel', {
 			},
 			items: [{
 				//text: '定位',
-				iconCls: 'locate',
-				handler: function(){
-					navigator.geolocation.getCurrentPosition(onSuccess, onError);
-					Ext.Msg.alert(latitude + "123");
-					//Ext.getCmp('m-location').setValue(latitude);
-					//Ext.getCmp('m-location').setHidden(false);
-				}
+				id: 'locate',
+				iconCls: 'locate'
 			}, {
 				text: '图片',
 				handler: function(){

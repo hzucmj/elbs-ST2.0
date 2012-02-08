@@ -6,6 +6,7 @@ Ext.define('App.controller.MainController', {
 	
 	init: function(){
 		console.log('hello');
+		App.PATH = 'http://192.168.1.101:8080/ELBS';
 		App.Viewport = Ext.create('App.view.Viewport');
 		App.LoginPanel = Ext.create('App.view.LoginPanel');
 		App.MainPanel= Ext.create('App.view.MainPanel');
