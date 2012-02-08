@@ -1,5 +1,6 @@
-Ext.define('app.controller.LoginPanel', {
+Ext.define('App.controller.LoginPanel', {
 	extend: 'Ext.app.Controller',
+	views: ['LoginPanel'],
 	config: {
 		
 	},
@@ -15,10 +16,9 @@ Ext.define('app.controller.LoginPanel', {
 	},
 	onLogin: function(){
 		console.log('logining...');
-		Ext.getCmp('elbs-viewport').setActiveItem(1);
+		App.Viewport.setActiveItem(App.MainPanel);
 	},
 	onExist: function(){
-		//navigator.app.existApp();
 		console.log('existing...');
 	}	
 });

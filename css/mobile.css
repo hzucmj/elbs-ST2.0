@@ -7,6 +7,7 @@
 .m-messages table tr td {
 	padding: 5px;
 }
+.m-messages table tr td {vertical-align: top;}
 .m-message-left {}
 
 .m-message-right .m-message-content{line-height: 24px;}
@@ -22,7 +23,6 @@
 .m-about-description{line-height: 24px;}
 .m-about-contact{line-height: 24px; padding-bottom: 0;}
 
-
 .list2{
     -webkit-border-radius : 10px;
 }
@@ -34,9 +34,9 @@
 }
 
 .list2 .x-list-item:first-of-type{
-	 -webkit-border-bottom-left-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
     -webkit-border-bottom-right-radius:0px;
-    
+    border-top: 1px solid silver;
 }
 .list2 .x-list-item:nth-of-type(2){
     border-top:0px;

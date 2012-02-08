@@ -1,4 +1,4 @@
-Ext.define('app.view.MorePanel', {
+Ext.define('App.view.MorePanel', {
 	extend: 'Ext.dataview.List',
 	// name: 'MorePanel',
 	// xtype: 'morepanellist',
@@ -17,17 +17,13 @@ Ext.define('app.view.MorePanel', {
 		     data: [
 		            {"name" : "设置", "icon":'setting',"needsIcon":true},
 		            {"name" : "关于","icon":'about',"needsIcon":true},
-		            {"name" : "退出","icon":'exit',"needsIcon":true}
-		        
+		            {"name" : "注销登录","icon":'exit',"needsIcon":true}
 		     ]
 		}),
 		items: [{
 			docked: 'top',
 			xtype: 'navigationbar',
-			title: '更多',
-			items: [
-				{ ui: 'back', text: 'Back', align: 'left', handler: function(btn){Ext.getCmp('elbs-viewport').setActiveItem(2)} }
-			]
+			title: '更多'
 		}]
 		
 		

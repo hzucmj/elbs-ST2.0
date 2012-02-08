@@ -1,4 +1,4 @@
-Ext.define('app.controller.MorePanel', {
+Ext.define('App.controller.MorePanel', {
 	extend: 'Ext.app.Controller',
 	config: {
 	},

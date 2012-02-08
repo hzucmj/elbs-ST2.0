@@ -1,4 +1,4 @@
-Ext.define('app.controller.MainPanel', {
+Ext.define('App.controller.MainPanel', {
 	extend: 'Ext.app.Controller',
 	
 	views: ['main'],

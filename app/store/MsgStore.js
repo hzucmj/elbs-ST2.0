@@ -1,16 +1,18 @@
-Ext.define('app.store.MsgStore', {
+Ext.define('App.store.MsgStore', {
 	extend: 'Ext.data.Store',
 	autoLoad: true,
-	model: 'app.model.Message',
+	model: 'App.model.Message',
 	proxy: {
 		type: 'ajax',
-		url: 'http://192.168.1.101:8080/ELBS/api.jxp?action=showmsg&start=0&limit=5&t=json&uid=20120115221614983',
+		url: PATH + '/api.jxp?action=showmsg&t=json&uid=20120115221614983',
 		reader: {
 			type: 'json',
 			root: 'data'
-		}
+		},
+		pageSize: LIMIT
 	},
-	init: function(){
-		
+	initialize: function(){
+		//alert(PATH);
+		this.callParent();
 	}
 });

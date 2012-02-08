@@ -1,4 +1,4 @@
-Ext.define('app.controller.Main', {
+Ext.define('App.controller.Main', {
 	extend: 'Ext.app.Controller',
 	config: {},
 	init: function(){
@@ -9,7 +9,7 @@ Ext.define('app.controller.Main', {
 						
 					} else if (index == 1) {
 						console.log('about');
-						Ext.getCmp('elbs-viewport').setActiveItem(2);
+						App.Viewport.setActiveItem(App.AboutPanel);
 					} else if (index == 2) {
 						
 					}
