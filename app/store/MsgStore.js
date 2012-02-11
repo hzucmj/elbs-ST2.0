@@ -1,6 +1,6 @@
 Ext.define('App.store.MsgStore', {
 	extend: 'Ext.data.Store',
-	autoLoad: false,
+	autoLoad: true,
 	model: 'App.model.Message',
 	proxy: {
 		type: 'ajax',
@@ -9,7 +9,7 @@ Ext.define('App.store.MsgStore', {
 			type: 'json',
 			root: 'data'
 		},
-		pageSize: LIMIT
+		pageSize: 50
 	},
 	initialize: function(){
 		this.callParent();

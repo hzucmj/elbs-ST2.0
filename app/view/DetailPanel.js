@@ -29,25 +29,41 @@ Ext.define('App.view.DetailPanel', {
 			}]*/
 		}, {
 			id: 'elbs-contentpanel',
+			name: 'contentpanel',
 			xtype: 'panel',
 			html: 'hello'
 		}, {
 			id: 'elbs-locationdetail',
-			xtype: 'textfield',
-			value: 'location'
+			xtype: 'textfield'
+		}, {
+			id: 'elbs-uiddetail',
+			xtype: 'hiddenfield',
+			value: ''
+		}, {
+			id: 'elbs-middetail',
+			xtype: 'hiddenfield',
+			value: ''
 		}, {
 			xtype: 'navigationbar',
 			docked: 'bottom',
 			title: '',
-			items: [{
-				id: 'elbs-leavecomment',
+			defaults: {
 				xtype: 'button',
 				iconMask: true,
-				text: '评论',
+				align: 'right'
+			},
+			items: [{
+				id: 'elbs-deletemsg',
+				ui: 'decline round',
+				iconCls: 'trash'
+			}, {
+				id: 'elbs-leavecomment',
 				ui: 'confirm round',
-				align: 'right',
 				iconCls: 'reply'
 			}]
 		}]
+	},
+	initialize: function() {
+		
 	}
 });

@@ -15,7 +15,9 @@ Ext.define('App.view.SearchPanel', {
 				xtype: 'textfield'
 			},
 			items: [{
+				id: 'elbs-searchtype',
 				xtype: 'selectfield',
+				name: 'searchtype',
 				fieldLabel: '搜索方式',
 				options: [{
 					text: '按用户',
@@ -26,6 +28,14 @@ Ext.define('App.view.SearchPanel', {
 				}, {
 					text: '按时间',
 					value: 'byDate'
+				}]
+			}, {
+				xtype: 'selectfield',
+				fieldLabel: '部门列表',
+				options: [{
+					text: 'dept1'
+				}, {
+					text: 'dept2'
 				}]
 			}, {
 				xtype: 'selectfield',

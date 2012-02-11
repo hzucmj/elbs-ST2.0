@@ -37,8 +37,29 @@ Ext.define('App.controller.MsgList', {
 			obj.getStore().load();
 		}
 	},
+	//Message列表点击查看信息详情
 	onItemTap: function(dataview, index, target, record, e){
 		console.log("show detail of message...");
+		var data = dataview.getStore().getAt(index);
+		MsgObj = {
+			mid: data.get('mid'),
+			uid: data.get('uid'),
+			username: data.get('username'),
+			nickname: data.get('nickname'),
+			content: data.get('content'),
+			location: data.get('location'),
+			photo: data.get('photo'),
+			image: data.get('image'),
+			posttime: data.get('posttime'),
+			music: data.get('music'),
+			video: data.get('video')
+		};
+		Ext.getCmp('elbs-contentpanel').setHtml(MsgObj.content);
+		Ext.getCmp('elbs-avatarpanel').src = WEBPATH + '/images/avatar/' + MsgObj.photo;
+		Ext.getCmp('elbs-locationdetail').setHtml(MsgObj.location);
+		Ext.getCmp('elbs-uiddetail').setValue(MsgObj.uid);
+		Ext.getCmp('elbs-middetail').setValue(MsgObj.mid);
+		Ext.getCmp('elbs-deletemsg').setHidden(MsgObj.uid == UID ? false : true);
 		App.Viewport.setActiveItem(App.DetailPanel);
 	},
 	onItemtouchstart: function() {
@@ -47,10 +68,11 @@ Ext.define('App.controller.MsgList', {
 	onItemtouchend: function() {
 		
 	},
+	//定位按钮事件
 	onLocate: function(){
 		navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
-		//Ext.Msg.alert(latitude + "123");
 	},
+	//寻找经纬度成功
 	onSuccess: function(position){
 		/*coords = {
 			latitude: position.coords.latitude,
@@ -69,22 +91,27 @@ Ext.define('App.controller.MsgList', {
 		//this.getAddress(latlng);
 		if (latlng != null) {
 			console.log("start locating...");
+			App.Viewport.setMasked({
+			    xtype: 'loadmask',
+			    message: 'Hello'
+			});
+			App.Viewport.setMasked(true);
 			Ext.Ajax.request({
-				//url: 'https://maps.google.com/maps/api/geocode/json?latlng=' + latlng + '&sensor=true',
-				url: 'https://maps.googleapis.com/maps/api/place/search/json?location=23.3239785,116.3515772&radius=1000&sensor=false&key=AIzaSyA4pkIjAT-KMp3lpVgpvptVHmNcSR7zaZI',
-				//method: 'get',
-				type: 'jsonp',
+				url: 'http://maps.google.com/maps/api/geocode/json?latlng=' + latlng + '&sensor=true',
+				method: 'get',
 				success: function(response) {
-					document.write(response.responseText);
 					var obj = Ext.decode(response.responseText);
 					var ac = obj.results[0].address_components;
-					alert(ac[2].long_name + ac[1].long_name + ac[0].long_name);
+					console.log(ac[2].long_name + ac[1].long_name + ac[0].long_name);
 					
-					Ext.getCmp('m-location').setValue(ac[2].long_name + ac[1].long_name + ac[0].long_name);
-					Ext.getCmp('m-location').setHidden(false);
+					Ext.getCmp('elbs-location').setHtml(ac[2].long_name + ac[1].long_name + ac[0].long_name);
+					Ext.getCmp('elbs-location').setHidden(false);
+				
+					App.Viewport.setMasked(false);
 				},
 				failure: function() {
-					alert('定位失败');
+					alert('定位失败, 请稍候重试！');
+					App.Viewport.setMasked(false);
 				}
 			});
 		}
@@ -92,37 +119,19 @@ Ext.define('App.controller.MsgList', {
 		//Ext.getCmp('m-location').setHidden(false);
 		//return coords;
 	},
-	
+	//寻找经纬度出错
 	onError: function(error) {
 		Ext.Msg.alert("Error Code: " + error.code + "\nError Message: " + error.message + "\n");
-	},
-	getAddress: function(latlng) {
-		if (latlng != null) {
-			console.log("start");
-			Ext.Ajax.request({
-				url: 'http://maps.google.com/maps/api/geocode/json?latlng=' + latlng + '&sensor=true',
-				//method: 'get',
-				success: function(response) {
-					var obj = Ext.decode(response.responseText);
-					var ac = obj.results[0].address_components;
-					alert(ac[2].long_name + ac[1].long_name + ac[0].long_name);
-					
-					Ext.getCmp('m-location').setValue(ac[2].long_name + ac[1].long_name + ac[0].long_name);
-					Ext.getCmp('m-location').setHidden(false);
-				},
-				failure: function() {
-					alert('xxx-failure');
-				}
-			});
-		}
 	},
 	onPost: function(){
 		var content = Ext.getCmp('elbs-postcontent');
 		var location = Ext.getCmp('elbs-location');
 		if (content != "") {
 			App.PostPanel.setMasked({
-				xtype: 'loadmask',
-				message: '正在发布，请稍候...'
+				masked: {
+					xtype: 'loadmask',
+					message: '正在发布，请稍候...'
+				}
 			});
 			Ext.Ajax.request({
 				url: WEBPATH + '/api.jxp?action=addmsg',
@@ -134,14 +143,16 @@ Ext.define('App.controller.MsgList', {
 				},
 				success: function(res) {
 					App.PostPanel.setMasked(false);
-					Ext.Msg.alert(res.responseText);
+					//Ext.Msg.alert(res.responseText);
+					var obj = Ext.decode(res.responseText);
+					alert(obj.msg);
 					content.setValue("");
 					location.setValue("");
 					App.Viewport.setActiveItem(App.MainPanel);
 					App.MsgList.getStore().load();
 				},
 				failure: function() {
-					alert('failure');
+					alert('发布失败，请稍候重试！');
 				}
 			});
 			

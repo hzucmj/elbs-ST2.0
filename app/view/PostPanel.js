@@ -1,9 +1,9 @@
 Ext.define('App.view.PostPanel', {
 	extend: 'Ext.Panel',
-	name: 'postpanel',
 	id: 'elbs-postpanel',
-	fullscreen: true,
 	config: {
+		name: 'postpanel',
+		fullscreen: true,
 		padding: 10,
 		items: [{
 			xtype: 'panel',
@@ -20,9 +20,9 @@ Ext.define('App.view.PostPanel', {
 					xtype: 'textfield',
 					id: 'elbs-location',
 					name: 'location',
-					readOnly: true,
-					border: false,
-					//hidden: true,
+					//readOnly: true,
+					//border: false,
+					hidden: true,
 					//disabled: true,
 					ui: 'plain'
 				}, {
@@ -71,14 +71,15 @@ Ext.define('App.view.PostPanel', {
 			}, {
 				text: '图片',
 				handler: function(){
-					Ext.getCmp('m-image').setHidden(false);
+					Ext.getCmp('elbs-image').setHidden(false);
 				}
 			}, {
 				text: '表情',
 				handler: function(){
 					latlng = '40.714224,-73.961452';
+					console.log('start locating...');
 					Ext.Ajax.request({
-						url: 'http://maps.google.com/maps/api/geocode/json?latlng=' + latlng + '&sensor=true',
+						url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true',
 						method: 'get',
 						success: function(response) {
 							//alert(response.responseText.formatted_address);
@@ -86,15 +87,15 @@ Ext.define('App.view.PostPanel', {
 							Ext.Msg.alert(obj[2].long_name);
 						},
 						failure: function() {
-							
+							console.log('failure...')
 						}
 					});
 				}
 			}, {
 				text: '话题',
 				handler: function(){
-					var content = Ext.getCmp('postcontent').getValue();
-					Ext.getCmp('postcontent').setValue(content + '##');
+					var content = Ext.getCmp('elbs-postcontent').getValue();
+					Ext.getCmp('elbs-postcontent').setValue(content + '##');
 				}
 			}]
 		}]
