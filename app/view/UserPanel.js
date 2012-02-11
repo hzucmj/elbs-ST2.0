@@ -55,6 +55,11 @@ Ext.define('App.view.UserPanel', {
 				id: 'saveprofile',
 				text: '保存',
 				align: 'right'			
+			}, {
+				xtype: 'button',
+				id: 'refreshprofile',
+				text: '刷新',
+				align: 'right'
 			}]
 		}, {
 			xtype: 'panel',

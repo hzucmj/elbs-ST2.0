@@ -18,7 +18,8 @@ function eventBackButton() {
 }
 // 菜单键
 function eventMenuButton() {
-	Ext.Msg.alert('MenuButton');
+	//Ext.Msg.alert('MenuButton');
+	//App.MenuList = 
 }
 // 搜索键
 function eventSearchButton() {

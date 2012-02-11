@@ -32,6 +32,6 @@ Ext.define('App.view.MsgList', {
 				}
 			]
 		}],
-		itemTpl: '<div class="m-messages"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="50"><div class="m-message-left"><div class="m-message-profile"><img src="' + PATH + '/images/avatar/{photo}" width="50" height="50"></div></div></td><td><div class="m-message-right"><div class="m-message-author"><span class="m-username">{username}</span><span class="m-postdate">{posttime}</span></div><div class="m-message-content"><span>{content}</span></div><div class="m-message-detail"><span>来自：{location}</span></div></div></td></tr></table></div>'
+		itemTpl: '<div class="m-messages"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="50"><div class="m-message-left"><div class="m-message-profile"><img src="' + WEBPATH + '/images/avatar/{photo}" width="50" height="50"></div></div></td><td><div class="m-message-right"><div class="m-message-author"><span class="m-username">{username}</span><span class="m-postdate">{posttime}</span></div><div class="m-message-content"><span>{content}</span></div><div class="m-message-detail"><span>来自：{location}</span></div></div></td></tr></table></div>'
 	}
 });

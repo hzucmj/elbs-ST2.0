@@ -1,19 +1,67 @@
 Ext.define('App.view.SearchPanel', {
-	extend: 'Ext.Carousel',
+	extend: 'Ext.Panel',
 	id: 'elbs-searchpanel',
 	config: {
 		title: '搜索',
 		iconCls: 'search',
+		padding: 15,
 		items: [{
 			docked: 'top',
 			xtype: 'navigationbar',
 			title: '搜索'
 		}, {
-			html: 'This panel for the search form.',
-			iconCls: 'search'
+			xtype: 'fieldset',
+			defaults: {
+				xtype: 'textfield'
+			},
+			items: [{
+				xtype: 'selectfield',
+				fieldLabel: '搜索方式',
+				options: [{
+					text: '按用户',
+					value: 'byUser'
+				}, {
+					text: '按关键词',
+					value: 'byKeyword'
+				}, {
+					text: '按时间',
+					value: 'byDate'
+				}]
+			}, {
+				xtype: 'selectfield',
+				fieldLabel: '用户列表',
+				options: [{
+					text: 'User 1',
+					value: 'User Id'
+				}, {
+					text: 'User 1',
+					value: 'User Id'
+				}, {
+					text: 'User 1',
+					value: 'User Id'
+				}, {
+					text: 'User 1',
+					value: 'User Id'
+				}, {
+					text: 'User 1',
+					value: 'User Id'
+				}, {
+					text: 'User 1',
+					value: 'User Id'
+				}]
+			}, {
+				fieldLabel: '关键词'
+			}, {
+				xtype: 'datepickerfield',
+				fieldLabel: '开始时间'		
+			}, {
+				xtype: 'datepickerfield',
+				fieldLabel: '结束时间'
+			}]
 		}, {
-			html: 'This panel for the search result.',
-			iconCls: 'search'
+			xtype: 'button',
+			text: '提交查询',
+			ui: 'confirm'
 		}]
 	}
 });

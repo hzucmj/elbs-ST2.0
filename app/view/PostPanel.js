@@ -2,29 +2,32 @@ Ext.define('App.view.PostPanel', {
 	extend: 'Ext.Panel',
 	name: 'postpanel',
 	id: 'elbs-postpanel',
+	fullscreen: true,
 	config: {
+		padding: 10,
 		items: [{
 			xtype: 'panel',
 			items: [{
 				xtype: 'textareafield',
-				id: 'postcontent',
+				id: 'elbs-postcontent',
 				name: 'content',
-				maxLength: 140
+				maxLength: 140,
+				maxRows: 6
 			}, {
 				xtype: 'panel',
 				margin: '5 0 5 0',
 				items: [{
 					xtype: 'textfield',
-					id: 'm-location',
+					id: 'elbs-location',
 					name: 'location',
 					readOnly: true,
 					border: false,
-					hidden: true,
-					disabled: true,
+					//hidden: true,
+					//disabled: true,
 					ui: 'plain'
 				}, {
 					xtype: 'image',
-					id: 'm-image',
+					id: 'elbs-image',
 					name: 'image',
 					src: './images/profile.jpg',
 					margin: '5 0 0 0',
@@ -44,24 +47,14 @@ Ext.define('App.view.PostPanel', {
 			items: [{
 				//ui: 'post', 
 				//text: '发布', 
+				id: 'elbs-post',
 				iconCls: 'add',
-				align: 'right',
-				handler: function(){
-					postPanel.submit({
-						url: WEBPATH + '/api.jxp?action=addmsg&uid=' + UID,
-						method: 'POST',
-						success: function(form, result){
-							Ext.Msg.alert(result.msg);
-						}
-					});
-				}
+				align: 'right'
 			}, {
+				id: 'elbs-postBackToMain',
 				ui: 'back', 
 				text: '返回', 
-				align: 'left',
-				handler: function(){
-					Ext.getCmp('elbs-viewport').setActiveItem(1);
-				}
+				align: 'left'
 			}]
 		}, {
 			xtype: 'toolbar',
@@ -73,7 +66,7 @@ Ext.define('App.view.PostPanel', {
 			},
 			items: [{
 				//text: '定位',
-				id: 'locate',
+				id: 'elbs-locate',
 				iconCls: 'locate'
 			}, {
 				text: '图片',

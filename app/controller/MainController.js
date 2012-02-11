@@ -20,13 +20,15 @@ Ext.define('App.controller.MainController', {
 		App.UserPanel = Ext.create('App.view.UserPanel');
 		App.MorePanel = Ext.create('App.view.MorePanel');
 		
+		App.DetailPanel = Ext.create('App.view.DetailPanel');
+		
 		App.MainPanel.add([App.MsgList, App.SearchPanel, App.InfoPanel, App.UserPanel, App.MorePanel]);
 		
 		
-		App.Viewport.setActiveItem(App.LoginPanel, {
-			type: 'slide',
-			direction: 'left'
-		});
+		//App.Viewport.setActiveItem(App.LoginPanel);
+		
+		App.Viewport.setActiveItem(App.MainPanel);
+		
 		//App.ViewPort.addItem(App.LoginPanel);
 		//App.ViewPort.addItem(App.MainPanel);
 		

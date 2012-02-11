@@ -23,6 +23,9 @@
 .m-about-description{line-height: 24px;}
 .m-about-contact{line-height: 24px; padding-bottom: 0;}
 
+#elbs-avatarpanel, #elbs-locationdetail, #elbs-contentpanel{background: #fff; border-radius: 5px; padding: 5px; margin-bottom: 5px;}
+
+
 .list2{
     -webkit-border-radius : 10px;
 }

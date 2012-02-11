@@ -1,10 +1,10 @@
 Ext.define('App.store.MsgStore', {
 	extend: 'Ext.data.Store',
-	autoLoad: true,
+	autoLoad: false,
 	model: 'App.model.Message',
 	proxy: {
 		type: 'ajax',
-		url: PATH + '/api.jxp?action=showmsg&t=json&uid=20120115221614983',
+		url: WEBPATH + '/api.jxp?action=showmsg&t=json&uid=' + UID,
 		reader: {
 			type: 'json',
 			root: 'data'
@@ -12,7 +12,6 @@ Ext.define('App.store.MsgStore', {
 		pageSize: LIMIT
 	},
 	initialize: function(){
-		//alert(PATH);
 		this.callParent();
 	}
 });
