@@ -5,7 +5,7 @@ Ext.define('App.view.AboutPanel', {
 		title: '关于',
 		items: [{
 			docked: 'top',
-			xtype: 'navigationbar',
+			xtype: 'titlebar',
 			title: '关于',
 			items: [{ 
 				ui: 'back', 

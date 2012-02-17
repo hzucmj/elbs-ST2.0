@@ -5,7 +5,7 @@ Ext.define('App.view.InfoPanel', {
 		iconCls: 'info',
 		items: [{
 			docked: 'top',
-			xtype: 'navigationbar',
+			xtype: 'titlebar',
 			title: '信息',
 			items: [{
 				text: '刷新',

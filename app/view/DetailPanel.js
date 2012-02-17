@@ -4,7 +4,7 @@ Ext.define('App.view.DetailPanel', {
 		fullscreen: true,
 		padding: 15,
 		items: [{
-			xtype: 'navigationbar',
+			xtype: 'titlebar',
 			title: '详情',
 			docked: 'top',
 			items: [{
@@ -44,7 +44,7 @@ Ext.define('App.view.DetailPanel', {
 			xtype: 'hiddenfield',
 			value: ''
 		}, {
-			xtype: 'navigationbar',
+			xtype: 'titlebar',
 			docked: 'bottom',
 			title: '',
 			defaults: {

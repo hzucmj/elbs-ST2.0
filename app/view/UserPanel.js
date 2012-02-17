@@ -1,36 +1,38 @@
 Ext.define('App.view.UserPanel', {
-	extend: 'Ext.Panel', 
+	extend: 'Ext.form.Panel', 
 	id: 'elbs-userpanel',
 	config: {
 		title: '个人资料',
 		iconCls: 'user',
 		items: [{
 			xtype: 'panel',
-			padding: 15,
 			defaults: {
 				labelWidth: 75
 			},
 			items: [{
+				id: 'elbs-useravatar',
 				xtype: 'panel',
-				id: 'useravatar',
+				name: 'useravatar',
 				html: '<div style="text-align:center;"><img style="padding: 50px auto 10px auto;" src="./images/profile.jpg" width=100 height=100 /></div>'
 			}, {
 				xtype: 'fieldset',
-				flex: 1,
 				items: [{
+					name: 'username',
 					xtype: 'textfield',
-					fieldLabel: '用户名'
+					label: '用户名'
 				}, {
+					name: 'email',
 					xtype: 'emailfield',
-					fieldLabel: '邮箱'
+					label: '邮箱'
 				}, {
+					name: 'nickname',
 					xtype: 'textfield',
-					fieldLabel: '昵称'
+					label: '昵称'
 				}, {
 					xtype: 'selectfield',
 					id: 'sex',
 					name : 'sex',
-					fieldLabel: '性别',
+					label: '性别',
 					options: [{
 						text: '男',
 						value: 'm'
@@ -39,15 +41,22 @@ Ext.define('App.view.UserPanel', {
 						value: 'f'
 					}]
 				}, {
+					name: 'birthday',
 					xtype: 'datepickerfield',
-					fieldLabel: '生日'
+					label: '生日'
 				}, {
+					name: 'department',
 					xtype: 'textfield',
-					fieldLabel: '部门',
+					label: '部门',
 					value: 'hello'
 				}, {
+					name: 'contact',
 					xtype: 'textfield',
-					fieldLabel: '联系方式'
+					label: '联系方式'
+				}, {
+					id: 'elbs-isLoadProfile',
+					xtype: 'hiddenfield',
+					value: 'false'
 				}]
 			}, {
 				xtype: 'panel',
@@ -58,30 +67,31 @@ Ext.define('App.view.UserPanel', {
 					margin: '0 0 0 5'
 				},
 				items: [{
+					id: 'elbs-saveprofile',
 					text: '保存',
 					ui: 'decline',
 					width: 100
-				}, {
+				}/*, {
 					text: '取消',
 					ui: 'confirm',
 					width: 100
-				}]
+				}*/]
 			}]
 		}, {
-			xtype: 'navigationbar',
+			xtype: 'titlebar',
 			docked: 'top',
 			title: '个人资料',
 			defaults: {
 				iconMask: true
 			},
-			items: [{
+			items: [/*{
 				xtype: 'button',
 				id: 'saveprofile',
 				text: '保存',
 				align: 'left'			
-			}, {
+			}, */{
 				xtype: 'button',
-				id: 'refreshprofile',
+				id: 'elbs-refreshprofile',
 				text: '刷新',
 				align: 'right'
 			}]

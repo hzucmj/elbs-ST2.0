@@ -1,7 +1,9 @@
-console.log("Initializing global variable ...");
-WEBPATH = 'http://192.168.1.188:8080/elbs';
+WEBPATH='http://192.168.2.1:8080/elbs';
 //用户全局变量
-UID = '20120115221614983';
+//UID = '20111027001719408';
+UID='';
+USER='';
+ROLE='';
 START = 0;
 LIMIT = 50;
 MsgObj = {};
@@ -12,13 +14,15 @@ Ext.Loader.setConfig({
 Ext.application({
 	name: 'App',
 	appFolder: 'app',
-	/*icon: 'resources/img/icon.png',
-    glossOnIcon: false,
+    /*glossOnIcon: false,
     phoneStartupScreen: 'resources/img/phone_startup.png',
     tabletStartupScreen: 'resources/img/tablet_startup.png',
     */
-    controllers: ['MainController','LoginPanel', 'Main', 'MsgList'],
+	views: ['Viewport', 'MainPanel', 'LoginPanel', 'AboutPanel', 'MsgList', 'PostPanel', 'SearchPanel', 'InfoPanel', 'UserPanel', 'MorePanel'],
+	models: ['Message'],
+    controllers: ['MainController','LoginPanel', 'MoreController', 'MsgList', 'MainPanel', 'User'],
     stores: ['MsgStore'],
-    init: function() {
-    }
+    
+	launch: function() {
+	}
 });

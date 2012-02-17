@@ -7,7 +7,7 @@ Ext.define('App.view.SearchPanel', {
 		padding: 15,
 		items: [{
 			docked: 'top',
-			xtype: 'navigationbar',
+			xtype: 'titlebar',
 			title: '搜索'
 		}, {
 			xtype: 'fieldset',
@@ -18,7 +18,7 @@ Ext.define('App.view.SearchPanel', {
 				id: 'elbs-searchtype',
 				xtype: 'selectfield',
 				name: 'searchtype',
-				fieldLabel: '搜索方式',
+				label: '搜索方式',
 				options: [{
 					text: '按用户',
 					value: 'byUser'
@@ -31,7 +31,7 @@ Ext.define('App.view.SearchPanel', {
 				}]
 			}, {
 				xtype: 'selectfield',
-				fieldLabel: '部门列表',
+				label: '部门列表',
 				options: [{
 					text: 'dept1'
 				}, {
@@ -39,7 +39,7 @@ Ext.define('App.view.SearchPanel', {
 				}]
 			}, {
 				xtype: 'selectfield',
-				fieldLabel: '用户列表',
+				label: '用户列表',
 				options: [{
 					text: 'User 1',
 					value: 'User Id'
@@ -60,13 +60,13 @@ Ext.define('App.view.SearchPanel', {
 					value: 'User Id'
 				}]
 			}, {
-				fieldLabel: '关键词'
+				label: '关键词'
 			}, {
 				xtype: 'datepickerfield',
-				fieldLabel: '开始时间'		
+				label: '开始时间'		
 			}, {
 				xtype: 'datepickerfield',
-				fieldLabel: '结束时间'
+				label: '结束时间'
 			}]
 		}, {
 			xtype: 'button',

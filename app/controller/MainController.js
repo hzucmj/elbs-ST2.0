@@ -1,13 +1,15 @@
 Ext.define('App.controller.MainController', {
 	extend: 'Ext.app.Controller',
-	views: ['Viewport', 'MainPanel', 'LoginPanel', 'AboutPanel', 'MsgList', 'PostPanel', 'SearchPanel', 'InfoPanel', 'UserPanel', 'MorePanel'],
-	//models: ['Message'],
+	
 	//controllers: ['LoginPanel', 'Main', 'MsgList'],
 	
 	init: function(){
 		
-		console.log('hello');
-		App.PATH = 'http://192.168.1.101:8080/ELBS';
+		App.WEBPATH = 'http://192.168.2.1:8080/elbs';
+		App.UID = '';
+		App.USER = '';
+		App.ROLE = '';
+		
 		App.Viewport = Ext.create('App.view.Viewport');
 		App.LoginPanel = Ext.create('App.view.LoginPanel');
 		App.MainPanel= Ext.create('App.view.MainPanel');
@@ -25,12 +27,14 @@ Ext.define('App.controller.MainController', {
 		
 		App.MainPanel.add([App.MsgList, App.SearchPanel, App.InfoPanel, App.UserPanel, App.MorePanel]);
 		
+		Ext.getCmp('elbs-webpath').setValue('http://192.168.2.1:8080/elbs');
 		
-		//App.Viewport.setActiveItem(App.LoginPanel);
 		
-		App.Viewport.setActiveItem(App.MainPanel);
 		
-		//App.ViewPort.addItem(App.LoginPanel);
+		
+		//App.Viewport.setActiveItem(App.MainPanel);
+		
+		App.Viewport.setActiveItem(App.LoginPanel);
 		//App.ViewPort.addItem(App.MainPanel);
 		
 	}

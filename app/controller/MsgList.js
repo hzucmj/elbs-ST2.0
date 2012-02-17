@@ -56,7 +56,7 @@ Ext.define('App.controller.MsgList', {
 		};
 		Ext.getCmp('elbs-contentpanel').setHtml(MsgObj.content);
 		Ext.getCmp('elbs-avatarpanel').src = WEBPATH + '/images/avatar/' + MsgObj.photo;
-		Ext.getCmp('elbs-locationdetail').setHtml(MsgObj.location);
+		Ext.getCmp('elbs-locationdetail').setValue(MsgObj.location);
 		Ext.getCmp('elbs-uiddetail').setValue(MsgObj.uid);
 		Ext.getCmp('elbs-middetail').setValue(MsgObj.mid);
 		Ext.getCmp('elbs-deletemsg').setHidden(MsgObj.uid == UID ? false : true);
@@ -70,33 +70,53 @@ Ext.define('App.controller.MsgList', {
 	},
 	//定位按钮事件
 	onLocate: function(){
+		App.Viewport.setMasked({
+			xtype: 'loadmask',
+			message: '正在定位，请稍候...',
+			indicator: false
+		});
 		navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
 	},
 	//寻找经纬度成功
 	onSuccess: function(position){
-		/*coords = {
-			latitude: position.coords.latitude,
-			longitude: position.coords.longitude,
-			altitude: position.coords.altitude,
-			accuracy: position.coords.accuracy,
-			altitudeAccuracy: position.coords.altitudeAccuracy,
-			heading: position.coords.heading,
-			speed: position.coords.speed,
-			timestamp: new Date(position.timestamp)
-		};*/
-		var latitude = position.coords.latitude;
-		var longitude = position.coords.longitude;
+		console.log("start locating...");
+		var latitude = position.coords.latitude + '';
+		var longitude = position.coords.longitude + '';
 		var latlng = latitude + ',' + longitude;
 		console.log("latlng: " + latlng);
 		//this.getAddress(latlng);
 		if (latlng != null) {
-			console.log("start locating...");
-			App.Viewport.setMasked({
-			    xtype: 'loadmask',
-			    message: 'Hello'
-			});
-			App.Viewport.setMasked(true);
-			Ext.Ajax.request({
+			//baidu map
+			/*
+			// 创建地理编码实例  
+			var myGeo = new BMap.Geocoder();
+			// 根据坐标得到地址描述  
+			myGeo.getLocation(new BMap.Point(longitude, latitude), function(result){  
+				if (result){  
+					alert(result.address);  
+				}  
+			});*/
+			
+			//soso map
+			var latlng1 = new soso.maps.LatLng(latitude, longitude);
+			var geocoder = new soso.maps.Geocoder();
+			geocoder.geocode({'location': latlng1}, function(results, status) {
+				if (status == soso.maps.GeocoderStatus.OK) {
+					//alert(results.address);
+					var obj = results.addressComponents;
+					Ext.getCmp('elbs-location').setValue(results.address);
+					Ext.getCmp('elbs-location').setHidden(false);
+					Ext.getCmp('elbs-image').src= 'http://st.map.soso.com/api?size=300*200&center=116.30613,39.98219&zoom=16';
+					Ext.getCmp('elbs-image').setHidden(false);
+					App.Viewport.setMasked(false);
+				} else {
+					alert('定位失败, 请稍候重试！');
+					App.Viewport.setMasked(false);
+				}
+			})
+			
+			//google map
+			/*Ext.Ajax.request({
 				url: 'http://maps.google.com/maps/api/geocode/json?latlng=' + latlng + '&sensor=true',
 				method: 'get',
 				success: function(response) {
@@ -104,7 +124,7 @@ Ext.define('App.controller.MsgList', {
 					var ac = obj.results[0].address_components;
 					console.log(ac[2].long_name + ac[1].long_name + ac[0].long_name);
 					
-					Ext.getCmp('elbs-location').setHtml(ac[2].long_name + ac[1].long_name + ac[0].long_name);
+					Ext.getCmp('elbs-location').setValue(ac[2].long_name + ac[1].long_name + ac[0].long_name);
 					Ext.getCmp('elbs-location').setHidden(false);
 				
 					App.Viewport.setMasked(false);
@@ -113,11 +133,8 @@ Ext.define('App.controller.MsgList', {
 					alert('定位失败, 请稍候重试！');
 					App.Viewport.setMasked(false);
 				}
-			});
+			});*/
 		}
-		//Ext.getCmp('m-location').setValue(address);
-		//Ext.getCmp('m-location').setHidden(false);
-		//return coords;
 	},
 	//寻找经纬度出错
 	onError: function(error) {
@@ -130,7 +147,8 @@ Ext.define('App.controller.MsgList', {
 			App.PostPanel.setMasked({
 				masked: {
 					xtype: 'loadmask',
-					message: '正在发布，请稍候...'
+					message: '正在发布，请稍候...',
+					indicator: false
 				}
 			});
 			Ext.Ajax.request({
@@ -153,6 +171,7 @@ Ext.define('App.controller.MsgList', {
 				},
 				failure: function() {
 					alert('发布失败，请稍候重试！');
+					App.PostPanel.setMasked(false);
 				}
 			});
 			

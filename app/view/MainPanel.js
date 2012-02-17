@@ -1,8 +1,8 @@
 Ext.define('App.view.MainPanel', {
 	extend: 'Ext.tab.Panel',
-	fullscreen: true,
+	id: 'elbs-mainpanel',
 	config: {
-		id: 'elbs-mainpanel',
+		fullscreen: true,
 		name: 'elbs-mainpanel',
 		tabBarPosition: 'bottom',
 	

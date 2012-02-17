@@ -5,41 +5,49 @@ Ext.define('App.view.LoginPanel', {
 		fullscreen: true,
 		//alias: 'widget.loginpanel',
 		padding: '20%',
-		margin: '50 10 0 10',
+		margin: '50 0 0 0',
 		items: [{
 			xtype: 'image',
 			width: 200,
 			height: 200,
 			src: './images/kgeography.png'
 		}, {
-			xtype: 'panel',
+			xtype: 'fieldset',
 			items: [{
+				id: 'elbs-username',
 				xtype: 'textfield',
-				fieldLabel: '用户名',
+				label: '用户名',
 				value: 'hzucmj'
 			}, {
+				id: 'elbs-password',
 				xtype: 'passwordfield',
-				fieldLabel: '密码',
+				label: '密码',
 				value: 'hzucmj'
 			}]
 		}, {
+			id: 'elbs-loginbutton',
+			xtype: 'button',
+			text: '登录',
+			margin: '10 0 0 0',
+			ui: 'confirm'
+		}, {
 			xtype: 'panel',
-			layout: 'hbox',
-			margin: '0 10 0 0',
-			padding: '0 0 0 75',
+			//hidden: true,
 			defaults: {
-				xtype: 'button',
-				width: 80
+				xtype: 'hiddenfield'
 			},
 			items: [{
-				id: 'loginbutton',
-				text: '登录',
-				ui: 'decline'
+				id: 'elbs-webpath',
+				value: ''
 			}, {
-				id: 'existbutton',
-				text: '退出',
-				ui: 'confirm',
-				margin: '0 0 0 5'
+				id: 'elbs-loginrole',
+				value: ''
+			}, {
+				id: 'elbs-loginuser',
+				value: ''
+			}, {
+				id: 'elbs-loginuid',
+				value: ''
 			}]
 		}]
 	}

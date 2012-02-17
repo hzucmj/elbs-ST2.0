@@ -4,7 +4,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	//检查联网状态
 	//checkConnection();
-	document.addEventListener("offline", checkConnection, false);
+	//document.addEventListener("offline", checkConnection, false);
 	
 	// 按钮事件
 	document.addEventListener("backbutton", eventBackButton, false); // 返回键
@@ -51,3 +51,4 @@ function eventMenuButton() {
 function eventSearchButton() {
 	Ext.Msg.alert('SearchButton');
 }
+

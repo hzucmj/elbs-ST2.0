@@ -1,10 +1,6 @@
 Ext.define('App.view.MorePanel', {
 	extend: 'Ext.dataview.List',
-	// name: 'MorePanel',
-	// xtype: 'morepanellist',
-	id: 'morelist',
-	xtype: 'morelist',
-	alias: 'widget.morelist',
+	id: 'elbs-morelist',
 	config: {
 		title: '更多',
 		iconCls: 'more',
@@ -22,11 +18,9 @@ Ext.define('App.view.MorePanel', {
 		}),
 		items: [{
 			docked: 'top',
-			xtype: 'navigationbar',
+			xtype: 'titlebar',
 			title: '更多'
 		}]
-		
-		
 	},
 	initialize: function(){
 		this.callParent();
