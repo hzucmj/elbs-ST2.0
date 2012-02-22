@@ -28,8 +28,12 @@ Ext.define('App.view.SearchPanel', {
 				}, {
 					text: '按时间',
 					value: 'byDate'
+				}, {
+					text: '按部门',
+					value: 'byDepartment'
 				}]
 			}, {
+				id: 'elbs-departmentlist',
 				xtype: 'selectfield',
 				label: '部门列表',
 				options: [{
@@ -38,6 +42,7 @@ Ext.define('App.view.SearchPanel', {
 					text: 'dept2'
 				}]
 			}, {
+				id: 'elbs-userlist',
 				xtype: 'selectfield',
 				label: '用户列表',
 				options: [{
@@ -60,15 +65,19 @@ Ext.define('App.view.SearchPanel', {
 					value: 'User Id'
 				}]
 			}, {
+				id: 'elbs-keyword',
 				label: '关键词'
 			}, {
+				id: 'elbs-startdate',
 				xtype: 'datepickerfield',
 				label: '开始时间'		
 			}, {
+				id: 'elbs-enddate',
 				xtype: 'datepickerfield',
 				label: '结束时间'
 			}]
 		}, {
+			id: 'elbs-searchbtn',
 			xtype: 'button',
 			text: '提交查询',
 			ui: 'confirm'

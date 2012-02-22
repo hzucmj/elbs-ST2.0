@@ -17,20 +17,23 @@ Ext.define('App.view.UserPanel', {
 			}, {
 				xtype: 'fieldset',
 				items: [{
+					id: 'elbs-p-username',
 					name: 'username',
 					xtype: 'textfield',
 					label: '用户名'
 				}, {
+					id: 'elbs-p-email',
 					name: 'email',
 					xtype: 'emailfield',
 					label: '邮箱'
 				}, {
+					id: 'elbs-p-nickname',
 					name: 'nickname',
 					xtype: 'textfield',
 					label: '昵称'
 				}, {
 					xtype: 'selectfield',
-					id: 'sex',
+					id: 'elbs-p-sex',
 					name : 'sex',
 					label: '性别',
 					options: [{
@@ -41,15 +44,18 @@ Ext.define('App.view.UserPanel', {
 						value: 'f'
 					}]
 				}, {
+					id: 'elbs-p-birthday',
 					name: 'birthday',
 					xtype: 'datepickerfield',
 					label: '生日'
 				}, {
+					id: 'elbs-p-department',
 					name: 'department',
 					xtype: 'textfield',
 					label: '部门',
 					value: 'hello'
 				}, {
+					id: 'elbs-p-contact',
 					name: 'contact',
 					xtype: 'textfield',
 					label: '联系方式'

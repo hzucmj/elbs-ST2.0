@@ -15,6 +15,7 @@ Ext.define('App.controller.MoreController', {
 						App.UID = '';
 						App.USER = '';
 						App.ROLE = '';
+						Ext.getCmp('elbs-isLoadProfile').setValue('false');
 					}
 				}
 			}

@@ -18,11 +18,12 @@ Ext.application({
     phoneStartupScreen: 'resources/img/phone_startup.png',
     tabletStartupScreen: 'resources/img/tablet_startup.png',
     */
-	views: ['Viewport', 'MainPanel', 'LoginPanel', 'AboutPanel', 'MsgList', 'PostPanel', 'SearchPanel', 'InfoPanel', 'UserPanel', 'MorePanel'],
+	views: ['Viewport', 'MainPanel', 'LoginPanel', 'AboutPanel', 'MsgList', 'PostPanel', 'SearchPanel', 'InfoPanel', 'UserPanel', 'MorePanel', 'SearchResult'],
 	models: ['Message'],
-    controllers: ['MainController','LoginPanel', 'MoreController', 'MsgList', 'MainPanel', 'User'],
-    stores: ['MsgStore'],
+    controllers: ['MainController','LoginPanel', 'MoreController', 'MsgList', 'MainPanel', 'User', 'SearchController'],
+    stores: ['MsgStore', 'SearchStore'],
     
 	launch: function() {
+		
 	}
 });

@@ -3,11 +3,71 @@ Ext.define('App.controller.MsgList', {
 	config: {},
 	views: ['MsgList', 'PostPanel'],
 	init: function(){
+		var me = Ext.getCmp('elbs-msglist');
+		var maxHeight = 0;
+		var scroller = me.getScrollable().getScroller();
+		var store = me.getStore();
+
+		scroller.on('scrollend', function(s, x, y) {
+			console.log('height:' + me.getHeight());
+			console.log('ex:' + x + "ey:" + y);
+			if(y == maxHeight) {
+				//到达底部
+				//当前页
+				var currentPage = Math.round(store.getCount() / 15) + 1;
+				console.log('currentPage: ' + currentPage);				
+				
+				Ext.data.JsonP.request({
+					url: App.WEBPATH + '/api.jxp',
+					params: {
+						action: 'showmsg',
+						role: App.ROLE,
+						uid: App.UID,
+						t: 'json',
+						username: App.USER,
+						page: currentPage
+					},
+					success: function(res) {
+						//alert(res.data[0].mid);
+						if (res.success == true) {
+							store.insert(store.getCount(), res.data);
+							//currentPage += 1;
+						} else {
+							if (res.msg == 'No Results.') {
+								alert('所有信息已加载完毕！');
+							}
+						}
+					},
+					failure: function(res) {
+						
+					}
+				});
+			} else if (y == 0) {
+				//到达顶部
+				store.load();
+			}
+		});
+		scroller.on('maxpositionchange', function(s, max){
+			console.log(max.y);
+			maxHeight = max.y;
+		});
 		this.control({
 			'#elbs-msglist': {
 				'itemtap': this.onItemTap,
 				'itemtouchstart': this.onItemtouchstart,
-				'itemtouchend': this.onItemtouchend
+				'itemtouchend': this.onItemtouchend,
+				'scroll': function(me, x, y) {
+					console.log('scroll:x, ' + x + ', y, ' + y);
+				},
+				'scrollstart': function(me, x, y) {
+					console.log('scrollstart:x, ' + x + ', y, ' + y);
+				},
+				'scrollend': function(me, x, y) {
+					console.log('scrollend:x, ' + x + ', y, ' + y);
+				},
+				'show': function() {
+					
+				}
 			},
 			'#newmsgbtn': {
 				'tap': this.onPostNew
@@ -23,6 +83,9 @@ Ext.define('App.controller.MsgList', {
 			},
 			'#elbs-postBackToMain': {
 				'tap': this.postBackToMain
+			}, 
+			'#elbs-deletemsg': {
+				'tap': this.onDeleteMessage
 			}
 		});
 	},
@@ -30,6 +93,7 @@ Ext.define('App.controller.MsgList', {
 		console.log("PostPanel showing...");
 		App.Viewport.setActiveItem(App.PostPanel);
 	},
+	//刷新信息列表
 	onRefresh: function(){
 		console.log("refreshing the msg list...");
 		var obj = Ext.getCmp('elbs-msglist');
@@ -70,11 +134,7 @@ Ext.define('App.controller.MsgList', {
 	},
 	//定位按钮事件
 	onLocate: function(){
-		App.Viewport.setMasked({
-			xtype: 'loadmask',
-			message: '正在定位，请稍候...',
-			indicator: false
-		});
+		App.mask('正在定位，请稍候...');
 		navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
 	},
 	//寻找经纬度成功
@@ -108,12 +168,14 @@ Ext.define('App.controller.MsgList', {
 					Ext.getCmp('elbs-location').setHidden(false);
 					Ext.getCmp('elbs-image').src= 'http://st.map.soso.com/api?size=300*200&center=116.30613,39.98219&zoom=16';
 					Ext.getCmp('elbs-image').setHidden(false);
-					App.Viewport.setMasked(false);
+					App.unmask();
 				} else {
 					alert('定位失败, 请稍候重试！');
-					App.Viewport.setMasked(false);
+					App.unmask();
 				}
 			})
+			
+			
 			
 			//google map
 			/*Ext.Ajax.request({
@@ -144,14 +206,8 @@ Ext.define('App.controller.MsgList', {
 		var content = Ext.getCmp('elbs-postcontent');
 		var location = Ext.getCmp('elbs-location');
 		if (content != "") {
-			App.PostPanel.setMasked({
-				masked: {
-					xtype: 'loadmask',
-					message: '正在发布，请稍候...',
-					indicator: false
-				}
-			});
-			Ext.Ajax.request({
+			App.mask('正在发布，请稍候...');
+			Ext.data.JsonP.request({
 				url: WEBPATH + '/api.jxp?action=addmsg',
 				method: 'post',
 				params: {
@@ -160,18 +216,25 @@ Ext.define('App.controller.MsgList', {
 					location: location.getValue()
 				},
 				success: function(res) {
-					App.PostPanel.setMasked(false);
-					//Ext.Msg.alert(res.responseText);
-					var obj = Ext.decode(res.responseText);
-					alert(obj.msg);
-					content.setValue("");
-					location.setValue("");
-					App.Viewport.setActiveItem(App.MainPanel);
-					App.MsgList.getStore().load();
+					App.unmask();
+					if (res.success == true) {
+						//Ext.Msg.alert(res.responseText);
+						//var obj = Ext.decode(res.responseText);
+						//alert(obj.msg);
+						alert(res.msg);
+						content.setValue("");
+						location.setValue("");
+						App.Viewport.setActiveItem(App.MainPanel);
+						App.MsgList.getStore().load();
+					} else {
+						App.unmask();
+						alert('发布失败，请稍候重试！');
+					}
+					
 				},
 				failure: function() {
+					App.unmask();
 					alert('发布失败，请稍候重试！');
-					App.PostPanel.setMasked(false);
 				}
 			});
 			
@@ -179,5 +242,34 @@ Ext.define('App.controller.MsgList', {
 	},
 	postBackToMain: function(){
 		App.Viewport.setActiveItem(App.MainPanel);
+	},
+	//删除一条信息
+	onDeleteMessage: function(){
+		navigator.notification.confirm('是否要删除该条信息，删除不可恢复？', function(btn) {
+			if (btn == 1) {
+				App.mask('正在删除，请稍候...');
+				var mid = Ext.getCmp('elbs-middetail').getValue().trim();
+				if (mid != '') {
+					Ext.data.JsonP.request({
+						url: App.WEBPATH + '/api.jxp?action=delmsg',
+						params: {
+							mid: mid
+						},
+						success: function(res) {
+							App.unmask();
+							if (res.success == true) {
+								alert('删除成功！');
+								App.MsgList.getStore().load();
+								App.Viewport.setActiveItem(App.MainPanel);
+							} else {
+								
+							}
+						}
+					});
+				}
+			} else if (btn == 2) {
+				
+			}
+		}, '提示', '确定,取消');
 	}
 });

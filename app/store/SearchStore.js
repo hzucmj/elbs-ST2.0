@@ -1,6 +1,6 @@
-Ext.define('App.store.MsgStore', {
+Ext.define('App.store.SearchStore', {
 	extend: 'Ext.data.Store',
-	id: 'elbs-msgstore',
+	id: 'elbs-searchstore',
 	autoLoad: true,
 	config: {
 		model: 'App.model.Message',
@@ -11,7 +11,7 @@ Ext.define('App.store.MsgStore', {
 				type: 'json',
 				rootProperty: 'data'
 			},
-			pageSize: 15
+			pageSize: 25
 		}		
 	},
 	initialize: function(){

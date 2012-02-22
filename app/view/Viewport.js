@@ -1,7 +1,8 @@
 Ext.define('App.view.Viewport', {
 	extend: 'Ext.Panel',
 	
-	config: {id: 'elbs-viewport',
+	config: {
+		id: 'elbs-viewport',
 		fullscreen : true,
 		layout : {
 			type : 'card',
